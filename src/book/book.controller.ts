@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { BookService } from './book.service';
@@ -32,8 +33,11 @@ export class BookController {
   async createBook(
     @Body()
     book: CreateBookDto,
+    @Req()
+    req,
   ): Promise<Book> {
-    return this.bookService.create(book);
+    console.log('req user', req.user);
+    return this.bookService.create(book, req.user);
   }
 
   @Get(':id')
